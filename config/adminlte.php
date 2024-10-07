@@ -290,8 +290,27 @@ return [
     */
 
     'menu' => [
+
+        [
+            'text' => 'ユーザー管理',
+            'url'  => 'users',
+            'icon' => 'fas fa-gamepad',
+        ],
+
+        [
+            'text' => 'ホーム画面',
+            'url'  => 'home',
+            'icon' => 'fas fa-gamepad',
+        ],
+
         [
             'text' => '商品一覧',
+            'url'  => 'home/item-list',
+            'icon' => 'fas fa-gamepad',
+        ],
+
+        [
+            'text' => '商品管理',
             'url'  => 'items',
             'icon' => 'fas fa-gamepad',
         ],

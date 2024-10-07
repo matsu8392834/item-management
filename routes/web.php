@@ -21,8 +21,28 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::prefix('users')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\UserController::class, 'index']);
+    Route::get('/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+    Route::post('/update', [App\Http\Controllers\UserController::class, 'update']);
+    Route::get('/delete/{id}', [App\Http\Controllers\UserController::class, 'delete']);
+});
+
 Route::prefix('items')->group(function () {
+
     Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
+    Route::get('/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit']);
+    Route::post('/update/{id}', [App\Http\Controllers\ItemController::class, 'update']);
+    Route::post('/destroy/{id}', [App\Http\Controllers\ItemController::class, 'destroy']);
+    Route::get('/detail/{id}', [App\Http\Controllers\ItemController::class, 'detail']);
+});
+
+Route::prefix('home')->group(function () {
+
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'home']);
+    Route::get('/item-list', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/item-detail/{id}', [App\Http\Controllers\HomeController::class, 'detail']);
 });
