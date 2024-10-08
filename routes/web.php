@@ -42,7 +42,7 @@ Route::prefix('items')->group(function () {
 
 Route::prefix('home')->group(function () {
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'home']);
-    Route::get('/item-list', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('/item-list', [App\Http\Controllers\HomeController::class, 'index2']);
     Route::get('/item-detail/{id}', [App\Http\Controllers\HomeController::class, 'detail']);
 });
