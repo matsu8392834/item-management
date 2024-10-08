@@ -8,6 +8,7 @@
 
 @section('content')
 
+<a href="/home/item-list" class="back">一覧画面に戻る</a>
     <div class="row">
         <div class="col-12">
             <div class="card">
