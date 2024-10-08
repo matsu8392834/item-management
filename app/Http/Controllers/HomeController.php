@@ -35,6 +35,7 @@ class HomeController extends Controller
         return view('home.item-list' , compact('items'));
     }
 
+
     public function detail($id)
     {
         //データを取得
@@ -49,40 +50,123 @@ class HomeController extends Controller
         return view('home.item-detail', compact('items'));
     }
     
- // 画像アップロード
- public function create()
- {
-     return view('home.create');
- }
 
- public function store(Request $request)
- {
-     $request->validate([
-         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-     ]);
+    // 画像アップロード
+    public function create()
+    {
+        return view('home.create');
+    }
 
-     $imageName = time() . '.' . $request->image->extension();
-     $request->image->move(public_path('home'), $imageName);
 
-     Image::create(['filename' => $imageName]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-      //POSTされた画像ファイルデータ取得しbase64でエンコードする
-     $image = base64_encode(file_get_contents($request->image->getRealPath()));
-      // base64エンコードしたバイナリデータを格納
-     Model::insert([
-     "comment" => $comment,
-     "image" => $image
-         ]); 
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('home'), $imageName);
 
-     return redirect("/image")->with('success', '画像がアップロードされました。');
+        Image::create(['filename' => $imageName]);
 
-     // return redirect()->route('images.show')->with('success', '画像がアップロードされました。');
- }
+        //POSTされた画像ファイルデータ取得しbase64でエンコードする
+        $image = base64_encode(file_get_contents($request->image->getRealPath()));
+        // base64エンコードしたバイナリデータを格納
+        Model::insert([
+        "comment" => $comment,
+        "image" => $image
+            ]); 
 
- public function show($id)
- {
-     $image = Image::all();
-     return view('home.show', compact('image'));
- }
+        return redirect("/image")->with('success', '画像がアップロードされました。');
+
+        // return redirect()->route('images.show')->with('success', '画像がアップロードされました。');
+    }
+
+
+    public function show($id)
+    {
+        $image = Image::all();
+        return view('home.show', compact('image'));
+    }
+
+
+    public function search(Request $request)
+    {
+        $keyword = trim($request->keyword);
+        $query = Item::query();
+
+        // 部分一致によるタイプの検索
+        $typeValue = $this->convertKeywordToType($keyword);
+        $statusValue = $this ->convertStatusToString($keyword);
+
+        if ($request->filled('keyword')) {
+            $query->where(function($q) use ($keyword, $typeValue, $statusValue) {
+                $q->where('name', 'LIKE', "%$keyword%")
+                  ->orwhere('type', 'LIKE', "%$typeValue%")
+                  ->orWhere('detail', 'LIKE', "%$keyword%");
+            });
+        }
+
+        // 価格の範囲検索
+        if ($request->filled('price_min') || $request->filled('price_max')) {
+            $query->whereBetween('price', [
+                $request->input('price_min', 0),
+                $request->input('price_max', PHP_INT_MAX)
+            ]);
+        }
+
+        // クエリの実行
+        $items = $query->get();
+
+        return view('home.item-list', compact('items', 'keyword'));
+        
+        // 種別とステータスの数値を文字列に変換
+        foreach ($items as $item) {
+            $item->type = $this->convertTypeToString($item->type);
+            $item->status = $this->convertStatusToString($item->status);
+        }
+
+        return view('home.item-list', compact('items', 'keyword'));
+
+    }
+
+
+     // キーワードをタイプに変換するメソッド
+     private function convertKeywordToType($keyword)
+     {
+         $typeMapping = [
+             'スポーツ用品' => 1,
+             '食料品' => 2,
+             '日用品' => 3,
+             '家電製品' => 4,
+             'エンタメグッズ' => 5,
+             'ファッション' => 6,
+             'インテリア用品' => 7,
+             'その他' => 8,
+         ];
+ 
+         // 部分一致でキーワードを検索
+         foreach ($typeMapping as $typeKeyword => $typeValue) {
+             if (strpos($typeKeyword, $keyword) !== false) {
+                 return $typeValue;
+             }
+         }
+ 
+         return null;
+     }
+
+     // ステータスの数値を文字列に変換するメソッド
+     private function convertStatusToString($status)
+     {
+         $statusMapping = [
+             1 => '在庫あり',
+             2 => '在庫なし',
+             3 => '予約受付中',
+         ];
+ 
+         return $statusMapping[$status] ?? '不明';
+     }
+
+
 
 }
