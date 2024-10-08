@@ -1,0 +1,91 @@
+
+.item-category {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: left;
+}
+
+.category {height: 30px;}
+
+.list {
+    display: block;
+    font-size: 20px;
+    margin-top: 30px;
+    padding-left: 0px;
+}
+
+.container1 {
+    padding-left:400px;
+}
+
+.container2 {
+    padding-left:400px;
+    padding-top: 40px;
+}
+
+.container3 {
+    padding-left:400px;
+    padding-top: 40px;
+}
+
+.container4 {
+    padding-left:400px;
+    padding-top: 40px;
+}
+
+.image{
+    width: 400px;
+    height: 300px;
+    margin:20px;
+}
+
+.box {
+    display:flex;
+    justify-content:center;
+    
+}
+
+.box2 {
+    display:flex;
+    justify-content:center;
+}
+
+.box3 {
+    display:flex;
+    justify-content:center;
+}
+
+.box4 {
+    display:flex;
+    justify-content:center;
+}
+
+.item-ranking {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 900;
+}
+
+.recommendation {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 900;
+   
+    
+}
+
+.time-sale {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 900;
+    
+}
+
+.pick-up {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 900;
+    
+    
+}
