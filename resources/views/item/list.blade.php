@@ -8,6 +8,22 @@
 
 @section('content')
 
+    @if(session('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
+    @if(session('updatemessage')) 
+        <div class="alert alert-success">
+        {{ session('updatemessage') }}
+        </div>
+    @endif
+    @if(session('deletemessage'))
+        <div class="alert alert-danger">
+        {{ session('deletemessage') }}
+        </div>
+    @endif   
+
     <form class="form-inline ml-auto"  action="{{ route('list') }}" method="GET">
     
 
@@ -144,4 +160,7 @@
 @stop
 
 @section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 @stop

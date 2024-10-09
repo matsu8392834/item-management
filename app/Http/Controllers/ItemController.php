@@ -69,6 +69,8 @@ class ItemController extends Controller
                 'status' => $request->status,
             ]);
 
+            session()->flash('message', '登録が完了しました。');
+
             return redirect('/items');
         }
 
@@ -122,7 +124,7 @@ class ItemController extends Controller
         $validatedData['user_id']=1;
         // $validatedData['user_id']=Auth::id();
 
-        return redirect('/items');
+        return redirect('/items')->with('updatemessage', '更新しました。');
     }
 
     /**
@@ -133,7 +135,7 @@ class ItemController extends Controller
         $item = item::where('id' , '=' , $request->id)->first();
         $item->delete();
 
-        return redirect('/items');
+        return redirect('/items')->with('deletemessage', '削除しました。');
     }
 
     public function detail($id)
