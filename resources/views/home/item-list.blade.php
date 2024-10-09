@@ -9,7 +9,7 @@
 @section('content')
 
     <form class="form-inline ml-auto"  action="{{ route('item-list') }}" method="GET">
-    @csrf
+    
 
         <input class="form-control mr-2" type="search" placeholder="検索" aria-label="Search" name="keyword" value="{{$keyword ?? ''}}" style = "margin-left:50px " >
                 
@@ -116,6 +116,9 @@
 
                         </tbody>
                     </table>
+
+                    {{ $items->appends(request()->query())->links('pagination::bootstrap-5')}}
+
                 </div>
             </div>
         </div>

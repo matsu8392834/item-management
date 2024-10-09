@@ -10,6 +10,10 @@ class UserController extends Controller
     public function index()
     {
         $users =User::all();
+
+        $users = User::select('id','name','email','password','role','created_at','updated_at')
+        ->sortable()->paginate(2);
+
         return view('user.index',compact('users'));
     }
 

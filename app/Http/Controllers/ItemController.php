@@ -27,6 +27,11 @@ class ItemController extends Controller
         // 商品一覧取得
         $items = Item::all();
 
+        $items = Item::select('id','user_id','name','price','type','detail','status','created_at','updated_at')
+        ->sortable()->paginate(2);
+
+      
+
         return view('item.list', compact('items'));
     }
 
@@ -173,7 +178,7 @@ class ItemController extends Controller
         }
 
         // クエリの実行
-        $items = $query->get();
+        $items = $query->paginate(2);
         //dump($items);
 
         return view('item.list', compact('items', 'keyword'));
@@ -181,7 +186,7 @@ class ItemController extends Controller
     }
 
      // キーワードをタイプに変換するメソッド
-     private function convertKeywordToType($keyword)
+    private function convertKeywordToType($keyword)
      {
 
          $typeMapping = [

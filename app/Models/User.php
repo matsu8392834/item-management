@@ -8,8 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Kyslik\ColumnSortable\Sortable;
+
 class User extends Authenticatable
 {
+
+    use Sortable;
+    public $sortable = ['id','created_at', 'role'];
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

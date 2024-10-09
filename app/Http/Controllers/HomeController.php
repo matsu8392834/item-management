@@ -32,7 +32,10 @@ class HomeController extends Controller
     {
         $items = Item::all();
 
-        return view('home.item-list' , compact('items'));
+        $items = Item::select('id','user_id','name','price','type','detail','status','created_at','updated_at')
+        ->paginate(2);
+
+        return view('home.item-list' , compact('item'));
     }
 
 
@@ -117,7 +120,7 @@ class HomeController extends Controller
         }
 
         // クエリの実行
-        $items = $query->get();
+        $items = $query->paginate(2);
         //dump($items);
 
         return view('home/item-list', compact('items', 'keyword'));

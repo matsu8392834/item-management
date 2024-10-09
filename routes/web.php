@@ -43,7 +43,7 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/items/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::post('/items/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::get('/items/edit/{id}', [App\Http\Controllers\ItemController::class, 'edit']);
-    Route::post('/itemsupdate/{id}', [App\Http\Controllers\ItemController::class, 'update']);
+    Route::post('/items/update/{id}', [App\Http\Controllers\ItemController::class, 'update']);
     Route::post('/items/destroy/{id}', [App\Http\Controllers\ItemController::class, 'destroy']);
     Route::get('/items/list', [App\Http\Controllers\ItemController::class, 'find'])->name('list');
     Route::get('/items/detail/{id}', [App\Http\Controllers\ItemController::class, 'detail']);

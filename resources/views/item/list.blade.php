@@ -9,7 +9,7 @@
 @section('content')
 
     <form class="form-inline ml-auto"  action="{{ route('list') }}" method="GET">
-    @csrf
+    
 
         <input class="form-control mr-2" type="search" placeholder="検索" aria-label="Search" name="keyword" value="{{$keyword ?? ''}}" style = "margin-left:50px " >
                 
@@ -40,15 +40,15 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>ユーザーID</th>
+                                <th>@sortablelink('id','ID')</th>
+                                <th>@sortablelink('user_id','ユーザーID')</th>
                                 <th>商品名</th>
-                                <th>価格</th>
-                                <th>種別</th>
+                                <th>@sortablelink('price','価格')</th>
+                                <th>@sortablelink('type','種別')</th>
                                 <th>詳細</th>
-                                <th>登録日時</th>
+                                <th>@sortablelink('created_at','登録日時')</th>
                                 <th>更新日時</th>
-                                <th>販売状態</th>
+                                <th>@sortablelink('status','販売状態')</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,6 +131,9 @@
 
                         </tbody>
                     </table>
+
+                    {{ $items->appends(request()->query())->links('pagination::bootstrap-5')}}
+
                 </div>
             </div>
         </div>

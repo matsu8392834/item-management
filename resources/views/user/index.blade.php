@@ -25,11 +25,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>@sortablelink('id','ID')</th>
                         <th>名前</th>
                         <th>メールアドレス</th>
+                        <th>@sortablelink('created_at','登録日時')</th>
                         <th>更新日時</th>
-                        <th>権限</th>
+                        <th>@sortablelink('role','権限')</th>
                         <th> </th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>{{$user->id}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->email}}</td>
+                        <td>{{$user->created_at}}</td>
                         <td>{{$user->updated_at}}</td>
                         <td>@if($user->role==0) 利用者
                             @else 管理者 @endif</td>
@@ -47,6 +49,9 @@
                     @endforeach
                 </tbody>
             </table>
+
+            {{ $users->appends(request()->query())->links('pagination::bootstrap-5')}}
+
     </div>
 
 @stop
