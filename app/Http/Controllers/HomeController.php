@@ -33,7 +33,7 @@ class HomeController extends Controller
         $items = Item::all();
 
         $items = Item::select('id','user_id','name','price','type','detail','status','created_at','updated_at')
-        ->paginate(2);
+        ->paginate(5);
 
         return view('home.item-list' , compact('item'));
     }

@@ -32,10 +32,10 @@
             <h2>人気商品ランキング</h2>
         </div>
             <div class="box">
-                <div class="image"><img src="/images/1.jpg" alt=""></div>
-                <div class="image"><img src="/images/2.jpg" alt=""></div>
-                <div class="image"><img src="/images/3.jpg" alt=""></div>
                 <div class="image"><img src="/images/4.jpg" alt=""></div>
+                <div class="image"><img src="/images/6.jpg" alt=""></div>
+                <div class="image"><img src="/images/3.jpg" alt=""></div>
+                <div class="image"><img src="/images/8.jpg" alt=""></div>
             </div>
     </div>
 
@@ -44,10 +44,10 @@
             <h2>あなたにおすすめの商品</h2>
         </div>
             <div class="box2">
+                <div class="image"><img src="/images/2.jpg" alt=""></div>
                 <div class="image"><img src="/images/5.jpg" alt=""></div>
-                <div class="image"><img src="/images/6.jpg" alt=""></div>
                 <div class="image"><img src="/images/7.jpg" alt=""></div>
-                <div class="image"><img src="/images/8.jpg" alt=""></div>
+                <div class="image"><img src="/images/1.jpg" alt=""></div>
             </div>
     </div>
 
@@ -56,10 +56,10 @@
             <h2>タイムセール</h2>
         </div>
             <div class="box3">
-                <div class="image"><img src="/images/5.jpg" alt=""></div>
                 <div class="image"><img src="/images/6.jpg" alt=""></div>
-                <div class="image"><img src="/images/7.jpg" alt=""></div>
-                <div class="image"><img src="/images/8.jpg" alt=""></div>
+                <div class="image"><img src="/images/3.jpg" alt=""></div>
+                <div class="image"><img src="/images/4.jpg" alt=""></div>
+                <div class="image"><img src="/images/2.jpg" alt=""></div>
             </div>
     </div>
 
@@ -68,10 +68,10 @@
             <h2>ピックアップ商品</h2>
         </div>
             <div class="box4">
-                <div class="image"><img src="/images/5.jpg" alt=""></div>
-                <div class="image"><img src="/images/6.jpg" alt=""></div>
+                <div class="image"><img src="/images/1.jpg" alt=""></div>
                 <div class="image"><img src="/images/7.jpg" alt=""></div>
                 <div class="image"><img src="/images/8.jpg" alt=""></div>
+                <div class="image"><img src="/images/5.jpg" alt=""></div>
             </div>
     </div>
 

@@ -12,7 +12,7 @@ class UserController extends Controller
         $users =User::all();
 
         $users = User::select('id','name','email','password','role','created_at','updated_at')
-        ->sortable()->paginate(2);
+        ->sortable()->paginate(5);
 
         return view('user.index',compact('users'));
     }
