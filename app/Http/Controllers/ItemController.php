@@ -180,7 +180,7 @@ class ItemController extends Controller
         }
 
         // クエリの実行
-        $items = $query->paginate(2);
+        $items = $query->paginate(5);
         //dump($items);
 
         return view('item.list', compact('items', 'keyword'));
