@@ -7,6 +7,22 @@
 @stop
 
 @section('content')
+
+    <form class="form-inline ml-auto"  action="{{ route('list') }}" method="GET">
+    @csrf
+
+        <input class="form-control mr-2" type="search" placeholder="検索" aria-label="Search" name="keyword" value="{{$keyword ?? ''}}" style = "margin-left:50px " >
+                
+        <!-- 最低価格入力フィールド -->
+        <input class="form-control mr-2" type="number" placeholder="最低価格" aria-label="Price Min" name="price_min" value="{{ request()->price_min }}">
+
+        <!-- 最高価格入力フィールド -->
+        <input class="form-control mr-2" type="number" placeholder="最高価格" aria-label="Price Max" name="price_max" value="{{ request()->price_max }}">
+                
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >検索</button>
+        
+    </form> 
+
     <div class="row">
         <div class="col-12">
             <div class="card">

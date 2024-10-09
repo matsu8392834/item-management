@@ -39,15 +39,15 @@ class HomeController extends Controller
     public function detail($id)
     {
         //データを取得
-        $items = Item::all();
+        $item = Item::find($id);
 
         // データが見つからない場合、404ページを表示する
-        if (!$items) {
+        if (!$item) {
             abort(404, 'データが見つかりません');
         }
 
         // ビューにデータを渡す
-        return view('home.item-detail', compact('items'));
+        return view('home.item-detail', compact('item'));
     }
     
 
@@ -89,7 +89,6 @@ class HomeController extends Controller
         return view('home.show', compact('image'));
     }
 
-
     public function search(Request $request)
     {
         $keyword = trim($request->keyword);
@@ -99,12 +98,14 @@ class HomeController extends Controller
         $typeValue = $this->convertKeywordToType($keyword);
         $statusValue = $this ->convertStatusToString($keyword);
 
-        if ($request->filled('keyword')) {
-            $query->where(function($q) use ($keyword, $typeValue, $statusValue) {
-                $q->where('name', 'LIKE', "%$keyword%")
-                  ->orwhere('type', 'LIKE', "%$typeValue%")
+
+        if (!empty($keyword) && empty($typeValue)) { 
+                $query->where('name', 'LIKE', "%{$keyword}%")
                   ->orWhere('detail', 'LIKE', "%$keyword%");
-            });
+        }
+
+        if (!empty($typeValue)) {
+            $query->where("type", $typeValue);
         }
 
         // 価格の範囲検索
@@ -117,23 +118,16 @@ class HomeController extends Controller
 
         // クエリの実行
         $items = $query->get();
+        //dump($items);
 
-        return view('home.item-list', compact('items', 'keyword'));
-        
-        // 種別とステータスの数値を文字列に変換
-        foreach ($items as $item) {
-            $item->type = $this->convertTypeToString($item->type);
-            $item->status = $this->convertStatusToString($item->status);
-        }
-
-        return view('home.item-list', compact('items', 'keyword'));
+        return view('home/item-list', compact('items', 'keyword'));
 
     }
-
 
      // キーワードをタイプに変換するメソッド
      private function convertKeywordToType($keyword)
      {
+
          $typeMapping = [
              'スポーツ用品' => 1,
              '食料品' => 2,
@@ -142,16 +136,14 @@ class HomeController extends Controller
              'エンタメグッズ' => 5,
              'ファッション' => 6,
              'インテリア用品' => 7,
-             'その他' => 8,
+             'その他' => 8
          ];
  
          // 部分一致でキーワードを検索
-         foreach ($typeMapping as $typeKeyword => $typeValue) {
-             if (strpos($typeKeyword, $keyword) !== false) {
-                 return $typeValue;
-             }
-         }
- 
+        if (array_key_exists($keyword, $typeMapping)) {
+            return $typeMapping[$keyword];
+        }
+
          return null;
      }
 
@@ -166,7 +158,5 @@ class HomeController extends Controller
  
          return $statusMapping[$status] ?? '不明';
      }
-
-
 
 }

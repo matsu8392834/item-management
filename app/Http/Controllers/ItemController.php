@@ -134,15 +134,85 @@ class ItemController extends Controller
     public function detail($id)
     {
         //データを取得
-        $items = Item::all();
+        $item = Item::find($id);
 
         // データが見つからない場合、404ページを表示する
-        if (!$items) {
+        if (!$item) {
             abort(404, 'データが見つかりません');
         }
 
         // ビューにデータを渡す
-        return view('item.detail', compact('items'));
+        return view('item.detail', compact('item'));
     }
+
+    public function find(Request $request)
+    {
+        $keyword = trim($request->keyword);
+        $query = Item::query();
+
+        // 部分一致によるタイプの検索
+        $typeValue = $this->convertKeywordToType($keyword);
+        $statusValue = $this ->convertStatusToString($keyword);
+
+
+        if (!empty($keyword) && empty($typeValue)) { 
+                $query->where('name', 'LIKE', "%{$keyword}%")
+                  ->orWhere('detail', 'LIKE', "%$keyword%");
+        }
+
+        if (!empty($typeValue)) {
+            $query->where("type", $typeValue);
+        }
+
+        // 価格の範囲検索
+        if ($request->filled('price_min') || $request->filled('price_max')) {
+            $query->whereBetween('price', [
+                $request->input('price_min', 0),
+                $request->input('price_max', PHP_INT_MAX)
+            ]);
+        }
+
+        // クエリの実行
+        $items = $query->get();
+        //dump($items);
+
+        return view('item.list', compact('items', 'keyword'));
+
+    }
+
+     // キーワードをタイプに変換するメソッド
+     private function convertKeywordToType($keyword)
+     {
+
+         $typeMapping = [
+             'スポーツ用品' => 1,
+             '食料品' => 2,
+             '日用品' => 3,
+             '家電製品' => 4,
+             'エンタメグッズ' => 5,
+             'ファッション' => 6,
+             'インテリア用品' => 7,
+             'その他' => 8
+         ];
+ 
+         // 部分一致でキーワードを検索
+        if (array_key_exists($keyword, $typeMapping)) {
+            return $typeMapping[$keyword];
+        }
+
+         return null;
+     }
+
+     // ステータスの数値を文字列に変換するメソッド
+     private function convertStatusToString($status)
+     {
+         $statusMapping = [
+             1 => '在庫あり',
+             2 => '在庫なし',
+             3 => '予約受付中',
+         ];
+ 
+         return $statusMapping[$status] ?? '不明';
+     }
 
 }

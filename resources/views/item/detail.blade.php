@@ -20,8 +20,6 @@
 
                         <thead>
 
-                            @foreach ($items as $item)
-
                                 <tr> <th class="th bg-primary">ID</th> <td class="td table-bordered bg-light">{{ $item->id }}</td> </tr>
                                 <tr> <th class="th bg-primary">ユーザーID</th> <td class="td table-bordered bg-light">{{ $item->user_id }}</td> </tr>
                                 <tr> <th class="th bg-primary">商品名</th> <td class="td table-bordered bg-light">{{ $item->name }}</td> </tr>
@@ -82,8 +80,6 @@
                                 ?>
 
                                 </td> </tr>
-
-                            @endforeach
 
                         </thead>
 

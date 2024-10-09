@@ -12,16 +12,19 @@
     <div class="item-category">
         <div class="category">
             <h2>ジャンル</h2>
-        </div>
+        
             <div class="list">
-                <li>スポーツ</li>
-                <li>食品・ドリンク</li>
-                <li>日用品・キッチン用品</li>
-                <li>家電・TV・カメラ</li>
-                <li>ゲーム・音楽・書籍</li>
-                <li>ファッション</li>
-                <li>家具・インテリア</li>
+                <ul>
+                    <li>スポーツ</li>
+                    <li>食品・ドリンク</li>
+                    <li>日用品・キッチン用品</li>
+                    <li>家電・TV・カメラ</li>
+                    <li>ゲーム・音楽・書籍</li>
+                    <li>ファッション</li>
+                    <li>家具・インテリア</li>
+                </ul>
             </div>
+        </div>
     </div>
 
     <div class="container1">
