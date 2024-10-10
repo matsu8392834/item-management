@@ -79,7 +79,7 @@
                             @csrf
                             
                         <div>
-                            <button type="submit" class="btn btn-primary" onclick="return confirm('本当に削除しますか？')">削除</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('本当に削除しますか？')">削除</button>
                         </div>
                 </form>
             </div>
