@@ -27,8 +27,8 @@ class UserController extends Controller
     {
         // バリデーション
         $request->validate([
-                'name' => 'required',
-                'email' => 'required',
+                'name' => 'required|string|max:50',
+                'email' => 'required|string|max:50',
         ]);
 
         $user =User::find($request->id);
